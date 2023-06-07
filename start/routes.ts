@@ -19,7 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-
+/*
 //HOTEL 
 Route.get('/', 'HotelController.index').as('hotel')
 
@@ -46,3 +46,27 @@ Route.post('/staff', 'StaffController.store').as('createStaff')
 Route.put('/:id/staff', 'StaffController.update').as('updateStaff')
 
 Route.delete('/:id/staff', 'StaffController.destroy').as('destroyStaff')
+*/
+Route.group(() => {
+  Route.get('/', 'HotelController.index')
+  Route.get('/:id', 'HotelController.show')
+  Route.post('/', 'HotelController.store')
+  Route.put('/:id', 'HotelController.update')
+  Route.delete('/:id', 'HotelController.destroy')
+}).prefix('/hotels')
+
+Route.group(() => {
+  Route.get('/', 'RoomsController.index')
+  Route.get('/:id', 'RoomsController.show')
+  Route.post('/', 'RoomsController.store')
+  Route.put('/:id', 'RoomsController.update')
+  Route.delete('/:id', 'RoomsController.destroy')
+}).prefix('/rooms')
+
+Route.group(() => {
+  Route.get('/', 'StaffController.index')
+  Route.get('/:id', 'StaffController.show')
+  Route.post('/', 'StaffController.store')
+  Route.put('/:id', 'StaffController.update')
+  Route.delete('/:id', 'StaffController.destroy')
+}).prefix('staff')

@@ -1,5 +1,9 @@
 import { DateTime } from 'luxon'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, hasMany, HasMany, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+
+//Models
+import Room from 'App/Models/Room'
+import Staff from 'App/Models/Room'
 
 export default class Hotel extends BaseModel {
   @column({ isPrimary: true })
@@ -10,6 +14,12 @@ export default class Hotel extends BaseModel {
 
   @column()
   public city: string
+
+  @hasMany(() => Staff)
+  public staff: HasMany<typeof Staff>
+
+  @hasMany(() => Room)
+  public rooms: HasMany<typeof Room>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
