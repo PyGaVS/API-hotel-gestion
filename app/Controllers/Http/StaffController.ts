@@ -11,6 +11,8 @@ export default class StaffController {
 
         const data = await request.validate(StaffValidator)
         await Staff.create(data)
+
+        return "Staff member added"
     }
 
     public async show ({params}: HttpContextContract){
@@ -29,6 +31,8 @@ export default class StaffController {
 
         const staff = await Staff.findOrFail(params.id)
         await staff.delete()
+
+        return "Staff member deleted"
 
     }
 }

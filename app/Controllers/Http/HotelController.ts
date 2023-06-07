@@ -12,6 +12,8 @@ export default class HotelController {
        
        const data = await request.validate(HotelValidator)
        await Hotel.create(data)
+
+       return "Hotel created"
     }
 
 
@@ -33,5 +35,7 @@ export default class HotelController {
 
         const hotel = await Hotel.findOrFail(params.id)
         await hotel.delete()
+
+        return "Hotel deleted"
     }
 }

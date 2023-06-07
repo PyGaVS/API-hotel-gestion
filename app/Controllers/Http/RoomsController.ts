@@ -11,6 +11,8 @@ export default class RoomsController {
 
         const data = await request.validate(RoomsValidator)
         await Room.create(data)
+
+        return "Room created"
     }
 
     public async update ({request, params}: HttpContextContract){
@@ -30,6 +32,8 @@ export default class RoomsController {
 
         const room = await Room.findOrFail(params.id)
         await room.delete()
+
+        return "Room deleted"
     }
 
 }
