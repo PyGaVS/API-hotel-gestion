@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { column, belongsTo, BelongsTo, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, belongsTo, BelongsTo, beforeSave, BaseModel, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 
 //Models
-import Hotel from 'App/Models/Room'
+import Hotel from 'App/Models/Hotel'
+import Room from 'App/Models/Room'
 
 export default class Staff extends BaseModel {
   @column({ isPrimary: true })
@@ -19,6 +20,9 @@ export default class Staff extends BaseModel {
 
   @belongsTo(() => Hotel)
   public hotel: BelongsTo<typeof Hotel>
+
+  @manyToMany(() => Room)
+  public room: ManyToMany<typeof Room>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

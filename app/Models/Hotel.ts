@@ -3,7 +3,7 @@ import { column, hasMany, HasMany, beforeSave, BaseModel } from '@ioc:Adonis/Luc
 
 //Models
 import Room from 'App/Models/Room'
-import Staff from 'App/Models/Room'
+import Staff from 'App/Models/Staff'
 
 export default class Hotel extends BaseModel {
   @column({ isPrimary: true })

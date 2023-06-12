@@ -17,6 +17,11 @@ export default class StaffValidator {
         hotel_id: schema.number([
             rules.exists({ table: 'hotels', column: 'id' })
         ]),
+        room_ids: schema.array.optional().members(
+            schema.number([
+                rules.exists({ table: 'rooms', column: 'id' })
+        ])
+        )
     })
 
     public messages = {'hotel_id.exists':"L'id de l'hotel ne correspond pas à un hotel existant !"} 

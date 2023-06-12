@@ -11,7 +11,7 @@ export default class extends BaseSchema {
 
       table.string('phone_number').notNullable().defaultTo('masked')
 
-      table.integer('hotel_id').unsigned().references('id').inTable('hotels')
+      table.integer('hotel_id').unsigned().references('id').inTable('hotels').onDelete('SET NULL')
       
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

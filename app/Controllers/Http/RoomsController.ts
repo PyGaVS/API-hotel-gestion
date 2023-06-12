@@ -4,22 +4,39 @@ import RoomsValidator from 'App/Controllers/Validators/RoomsValidator'
 
 export default class RoomsController {
     public async index ({}:HttpContextContract){
-        return Room.all()
+        //return Room.all()
+        return Room.query().preload('staff').preload('hotel')
     }
 
     public async store ({request}: HttpContextContract){
 
         const data = await request.validate(RoomsValidator)
-        await Room.create(data)
+        const room = await Room.create({
+            hotelId: data.hotel_id,
+            doorNumber: data.door_number,
+            floor: data.floor
+        })
+
+        if (data.staff_ids) {
+            room.related('staff').attach(data.staff_ids)
+        }
 
         return "Room created"
     }
 
     public async update ({request, params}: HttpContextContract){
 
+        const data = await request.validate(RoomsValidator)
         const room = await Room.findOrFail(params.id)
-        await room.merge(
-        await request.validate(RoomsValidator)).save()
+        await room.merge({
+            hotelId: data.hotel_id,
+            doorNumber: data.door_number,
+            floor: data.floor
+        }).save()
+
+        if (data.staff_ids) {
+            room.related('staff').sync(data.staff_ids)
+        }
     }
 
     public async show ({params}: HttpContextContract){

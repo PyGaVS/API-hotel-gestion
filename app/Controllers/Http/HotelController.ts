@@ -5,7 +5,7 @@ import HotelValidator from 'App/Controllers/Validators/HotelValidator'
 export default class HotelController {
     public async index ({}:HttpContextContract){
         //let hotels = await Hotel.all()
-        return Hotel.all()
+        return Hotel.query().preload('rooms').preload('staff')
     }
 
     public async store ({request}: HttpContextContract){
@@ -26,7 +26,7 @@ export default class HotelController {
 
     public async show ({params}: HttpContextContract){
 
-        const hotel = await Hotel.findOrFail(params.id)
+        const hotel = (await Hotel.query().preload('rooms').preload('staff').where('id',params.id).firstOrFail())
         return hotel
     }
 
